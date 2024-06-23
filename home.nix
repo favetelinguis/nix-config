@@ -22,6 +22,18 @@
         programs.emacs = {
                 enable = true;
                 package = pkgs.emacs;
+		extraPackages = epkgs: [
+			epkgs.nord-theme
+		];
+		extraConfig = ''
+		(use-package emacs
+			:config
+			(setq use-package-always-ensure nil))
+		
+		(use-package nord-theme
+		  	:config
+			(load-theme 'nord t))
+		'';
         };
 
 	programs.direnv = {
