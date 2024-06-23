@@ -30,6 +30,10 @@
 		nix-direnv.enable = true;
 	};
 
+	programs.password-store = {
+		enable = true;
+	};
+
 	programs.ripgrep = {
 		enable = true;
 	};

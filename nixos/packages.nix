@@ -7,6 +7,7 @@
 	
 	# CLI tools
 	just
+	chezmoi
 
 	# Desktop apps
 	google-chrome
