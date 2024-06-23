@@ -24,6 +24,12 @@
                 package = pkgs.emacs;
         };
 
+	programs.direnv = {
+		enable = true;
+		enableBashIntegration = true;
+		nix-direnv.enable = true;
+	};
+
 	programs.ripgrep = {
 		enable = true;
 	};
