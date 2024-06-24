@@ -79,6 +79,8 @@
     options = "--delete-older-than-30d";
   };
 
+  # Add support for my ZSA keyboard udev rules
+  hardware.keyboard.zsa.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
  # users.users.henke = {
  #   isNormalUser = true;

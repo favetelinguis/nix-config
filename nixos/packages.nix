@@ -10,7 +10,19 @@
 
 	# Desktop apps
 	google-chrome
-	
+
+	# Golang
+  go
+  gopls
+  delve
+
+  # Clojure
+  clojure
+  clojure-lsp
+  babashka
+  cljfmt
+  clj-kondo
+  
 	# Other
 	home-manager
 	];
