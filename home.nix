@@ -19,6 +19,25 @@ programs.git = {
   extraConfig.init.defaultBranch = "main";
 };
 
+programs.helix = {
+  enable = true;
+  defaultEditor = true;
+  settings = {
+    theme = "modus_operandi";
+    editor = {
+      gutters = ["diagnostics" "spacer" "diff"];
+    };
+  };
+  extraPackages = [
+    pkgs.marksman
+    pkgs.nil
+    pkgs.gopls
+    pkgs.golangci-lint-langserver
+    pkgs.delve
+    pkgs.clojure-lsp
+  ];
+};
+
 programs.emacs = {
   enable = true;
   package = pkgs.emacs-gtk;
