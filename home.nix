@@ -110,6 +110,12 @@ programs.helix = {
     pkgs.golangci-lint-langserver
     pkgs.delve
     pkgs.clojure-lsp
+		pkgs.rust-analyzer
+		pkgs.taplo
+		pkgs.lldb
+		pkgs.vscode-langservers-extracted
+		pkgs.yaml-language-server
+		pkgs.ansible-language-server
   ];
 };
 
