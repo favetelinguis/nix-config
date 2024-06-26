@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ pkgs, pkgs-unstable, ... }: {
 	nixpkgs.config = {
 		allowUnfree = true;
 	};
 
-	environment.systemPackages = with pkgs; [
+	environment.systemPackages = (with pkgs; [
 	
 	# CLI tools
 	just
@@ -13,7 +13,11 @@
 
 	# Other
 	home-manager
-	];
+	])
+
+	++
+
+	(with pkgs-unstable; []);
 
 	fonts.packages = with pkgs; [
 		jetbrains-mono
