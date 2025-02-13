@@ -1,103 +1,126 @@
-{ pkgs, pkgs-unstable, ... }: {
+{ pkgs, pkgs-unstable, ... }:
+{
   home = {
     username = "henke";
     homeDirectory = "/home/henke";
     stateVersion = "24.05";
-    packages = (with pkgs; [ ]) ++ (with pkgs-unstable; [
-      leiningen
-      clojure
-      rlwrap
-      cljfmt
-      clj-kondo
-      clojure-lsp
-      # chatgpt-cli # only old version so installed manually to .local/bin
-      emacs
-      jdk21
-      maven
-      nixfmt-classic
-      unzip
-      jetbrains-mono
-      wl-clipboard # need this to get copy past working with helix
-    ]);
+    packages =
+      (with pkgs; [ ])
+      ++ (with pkgs-unstable; [
+        leiningen
+        clojure
+        rlwrap
+        cljfmt
+        clj-kondo
+        clojure-lsp
+        # chatgpt-cli # only old version so installed manually to .local/bin
+        emacs
+        jdk21
+        maven
+        unzip
+        jetbrains-mono
+        wl-clipboard # need this to get copy past working with helix
+      ]);
   };
 
-  programs.gh = { enable = true; };
+  programs.gh = {
+    enable = true;
+  };
 
-  programs.gh-dash = { enable = true; };
+  programs.gh-dash = {
+    enable = true;
+  };
 
-  programs.k9s = { enable = true; };
+  programs.k9s = {
+    enable = true;
+  };
 
   # rust tldr clone
-  programs.tealdeer = { enable = true; };
-
-  programs.broot = { enable = true; 
-  settings = {
-    verbs = [
-        {
-        "invocation"= "gitu";
-        "shortcut"="gg";
-        "key"= "ctrl-g";
-        "execution"= "gitu";
-        "leave_broot"= false;
-    }
-        {
-        "invocation"= "edit";
-        "shortcut"="e";
-        "key"= "enter";
-        "apply_to"= "text_file";
-        "execution"= "$EDITOR {file}:{line}";
-        "leave_broot"= false;
-    }
-          { invocation = "git_filelog"; shortcut = "gl"; "leave_broot" = false; "execution" = "git log -p --follow -- {file}";  } 
-          { invocation = "git_blame"; shortcut = "gb"; "leave_broot" = false; "execution" = "git blame {file}";  } 
-               {
-         key = "ctrl-k";
-         execution = ":line_up";
-     }
-     {
-         key = "ctrl-j";
-         execution= ":line_down";
-     }
-     {
-         key= "ctrl-u";
-         execution= ":page_up";
-     }
-     {
-         key= "ctrl-d";
-         execution = ":page_down";
-     }
-     {
-         key= "ctrl-h";
-         execution = ":panel_left_no_open";
-     }
-     {
-         key= "ctrl-l";
-         execution = ":panel_right";
-     }
-         {
-         invocation= "home";
-         key= "ctrl-home";
-         execution= ":focus ~";
-     }
-
-     {
-         invocation= "gtr";
-         execution= ":focus {git-root}";
-     }
-        ];  
-        };
+  programs.tealdeer = {
+    enable = true;
   };
 
-  programs.zoxide = { enable = true;
-  options = ["--cmd j"]; };
+  programs.broot = {
+    enable = true;
+    settings = {
+      verbs = [
+        {
+          "invocation" = "gitu";
+          "shortcut" = "gg";
+          "key" = "ctrl-g";
+          "execution" = "gitu";
+          "leave_broot" = false;
+        }
+        {
+          "invocation" = "edit";
+          "shortcut" = "e";
+          "key" = "enter";
+          "apply_to" = "text_file";
+          "execution" = "$EDITOR {file}:{line}";
+          "leave_broot" = false;
+        }
+        {
+          invocation = "git_filelog";
+          shortcut = "gl";
+          "leave_broot" = false;
+          "execution" = "git log -p --follow -- {file}";
+        }
+        {
+          invocation = "git_blame";
+          shortcut = "gb";
+          "leave_broot" = false;
+          "execution" = "git blame {file}";
+        }
+        {
+          key = "ctrl-k";
+          execution = ":line_up";
+        }
+        {
+          key = "ctrl-j";
+          execution = ":line_down";
+        }
+        {
+          key = "ctrl-u";
+          execution = ":page_up";
+        }
+        {
+          key = "ctrl-d";
+          execution = ":page_down";
+        }
+        {
+          key = "ctrl-h";
+          execution = ":panel_left_no_open";
+        }
+        {
+          key = "ctrl-l";
+          execution = ":panel_right";
+        }
+        {
+          invocation = "home";
+          key = "ctrl-home";
+          execution = ":focus ~";
+        }
+
+        {
+          invocation = "gtr";
+          execution = ":focus {git-root}";
+        }
+      ];
+    };
+  };
+
+  programs.zoxide = {
+    enable = true;
+    options = [ "--cmd j" ];
+  };
 
   programs.bash = {
     enable = true;
     shellAliases = {
       gg = "gitui";
       q = "chatgpt --prompt ~/repos/prompts/explain_code.md";
-      ll = "br";    
-      };
+      ll = "br";
+    };
     initExtra = ''
       source ~/torg/torg.sh
       export PS1="\w\$([ \j -gt 0 ] && echo [\j]) \n$ "
@@ -190,24 +213,75 @@
       };
       theme = "catppuccin_mocha";
       editor = {
-        gutters = [ "diagnostics" "spacer" "diff" ];
-        soft-wrap = { enable = true; };
+        gutters = [
+          "diagnostics"
+          "spacer"
+          "diff"
+        ];
+        soft-wrap = {
+          enable = true;
+        };
       };
     };
+    languages = {
+      language-server.gpt = {
+        command = "helix-gpt";
+      };
+      language-server.roc-ls = {
+        command = "roc_language_server";
+      };
+      language = [
+        {
+          name = "nix";
+          auto-format = true;
+        }
+        {
+          name = "go";
+          language-servers = [
+            "gopls"
+            "golangci-lint-lsp"
+            "gpt"
+          ];
+        }
+        {
+          name = "roc";
+          scope = "source.roc";
+          injection-regex = "roc";
+          file-types = [ "roc" ];
+          shebangs = [ "roc" ];
+          roots = [ ];
+          comment-token = "#";
+          language-servers = [ "roc-ls" ];
+          indent = {
+            tab-width = 2;
+            unit = "  ";
+          };
+          auto-format = true;
+          formatter = {
+            command = "roc";
+            args = [
+              "format"
+              "--stdin"
+              "--stdout"
+            ];
+          };
+        }
+      ];
+      grammar = [
+        {
+          name = "roc";
+          source = {
+            git = "https://github.com/faldor20/tree-sitter-roc.git";
+            rev = "6ea64b6434a45472bd87b0772fd84a017de0a557";
+          };
+        }
+      ];
+    };
     extraPackages = [
-      pkgs.marksman
-      pkgs.nil
-      pkgs.gopls
-      pkgs.golangci-lint-langserver
-      pkgs.delve
-      pkgs.clojure-lsp
-      pkgs.rust-analyzer
-      pkgs.taplo
-      pkgs.lldb
-      pkgs.vscode-langservers-extracted
-      pkgs.yaml-language-server
-      pkgs.ansible-language-server
-      pkgs.nodePackages.typescript-language-server
+      pkgs-unstable.nixd # for nix files
+      pkgs-unstable.nixfmt-rfc-style # needed for nixd formatting
+      pkgs-unstable.helix-gpt
+      pkgs-unstable.marksman
     ];
   };
 
@@ -259,9 +333,15 @@
     };
   };
 
-  programs.password-store = { enable = true; };
+  programs.password-store = {
+    enable = true;
+  };
 
-  programs.ripgrep = { enable = true; };
+  programs.ripgrep = {
+    enable = true;
+  };
 
-  programs.fd = { enable = true; };
+  programs.fd = {
+    enable = true;
+  };
 }
