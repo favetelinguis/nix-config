@@ -7,12 +7,19 @@
 	
 	# CLI tools
 	just
+	vlc
+	kubectl
+	kind
+	kubernetes-helm
 
 	# Desktop apps
 	google-chrome
+	jetbrains.idea-ultimate
 
 	# Other
 	home-manager
+	docker-compose
+	ghostty
 	])
 
 	++

@@ -1,6 +1,6 @@
-# When I want to update flakes.lock
+# When I want to update flakes.lock run this then i can run home-manager for example to update all packages
 update-packages:
-	nix flake update
+	sudo nix flake update
 # When making system changes run this
 rebuild:
 	sudo nixos-rebuild switch --flake .
