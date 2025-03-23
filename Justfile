@@ -7,3 +7,7 @@ rebuild:
 # When making changes to home.nix
 home-manager:
 	home-manager switch --flake .
+
+collect-garbage:
+	sudo nix-collect-garbage -d
+

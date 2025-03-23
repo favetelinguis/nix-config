@@ -123,7 +123,7 @@
     };
     initExtra = ''
       source ~/torg/torg.sh
-      export PS1="\w\$([ \j -gt 0 ] && echo [\j]) \n$ "
+      export PS1="\$([ \j -gt 0 ] && echo [\j]) \w\n$ "
     '';
     profileExtra = ''
       PATH=$PATH:~/.config/emacs/bin:~/.local/bin
@@ -213,6 +213,11 @@
       };
       theme = "catppuccin_mocha";
       editor = {
+        end-of-line-diagnostics = "hint";
+        inline-diagnostics = {
+          cursor-line = "error";
+          # other-lines = "error";
+        };
         gutters = [
           "diagnostics"
           "spacer"
